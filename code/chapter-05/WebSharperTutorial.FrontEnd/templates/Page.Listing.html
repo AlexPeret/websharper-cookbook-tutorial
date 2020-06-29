@@ -1,0 +1,18 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Updated At</th>
+        </tr>
+    </thead>
+    <tbody ws-hole="Rows">
+        <tr ws-template="RowTemplate">
+            <th scope="row">${Code}</th>
+            <td><a class="btn btn-link" href="javascript:void(0)" ws-onclick="OnEdit">${Firstname}</a></td>
+            <td>${Lastname}</td>
+            <td>${UpdatedAt}</td>
+        </tr>
+    </tbody>
+</table>

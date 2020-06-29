@@ -1,0 +1,96 @@
+namespace WebSharperTutorial.FrontEnd
+
+open WebSharper
+open WebSharper.Sitelets
+open WebSharper.UI
+open WebSharper.UI.Server
+
+module Site =
+    open WebSharper.UI.Html
+    open WebSharper.UI.Client // required by the Doc.EmbedView
+    open WebSharperTutorial.FrontEnd.Routes
+    open WebSharperTutorial.FrontEnd.Pages
+
+    type MainTemplate = Templating.Template<"templates/Main.html">
+
+    let private MainTemplate ctx action (title: string) (body: Doc list) =
+        Content.Page(
+            MainTemplate()
+                .Title(title)
+                .Body(body)
+                .Doc()
+        )
+
+    [<JavaScript>]
+    let RouteClientPage () =
+        let router = Routes.InstallRouter ()
+
+        router.View
+        |> View.Map (fun endpoint ->
+            match endpoint with
+            | EndPoint.Home ->
+                PageHome.Main router
+
+            | EndPoint.Login ->
+                PageLogin.Main router
+
+            | EndPoint.Listing ->
+                PageListing.Main router
+
+            | EndPoint.Form code ->
+                PageForm.Main router code
+
+            | _ ->
+                div [] [ text "implementation pending" ]
+        )
+        |> Doc.EmbedView
+
+    let LoadClientPage ctx title endpoint =
+        let body = client <@ RouteClientPage() @>
+        MainTemplate ctx endpoint title [ body ]
+
+    [<Website>]
+    let Main =
+        Sitelet.New
+            SiteRouter
+            (fun ctx endpoint ->
+                let loggedUser =
+                    async {
+                        return! ctx.UserSession.GetLoggedInUser()
+                    }
+                    |> Async.RunSynchronously
+
+                match loggedUser with
+                | None -> // user is not authenticated. Allow only public EndPoints
+                    match endpoint with
+                    | EndPoint.Home ->
+                        LoadClientPage ctx "Home" endpoint
+
+                    | EndPoint.Login ->
+                        LoadClientPage ctx "Login" endpoint
+
+                    | EndPoint.AccessDenied ->
+                        MainTemplate ctx endpoint "Access Denied Page"
+                            [ div [] [ text "Access denied" ] ]
+                    | _ ->
+                        Content.RedirectTemporary AccessDenied
+
+                | Some (u) -> // user is authenticated. Allow all EndPoints
+                    match endpoint with
+                    | EndPoint.Home ->
+                        LoadClientPage ctx "Home" endpoint
+
+                    | EndPoint.Login ->
+                        LoadClientPage ctx "Login" endpoint
+
+                    | EndPoint.Listing ->
+                        LoadClientPage ctx "Listing Page" endpoint
+
+                    | EndPoint.Form code ->
+                        LoadClientPage ctx "Form Page" endpoint
+
+                    | _ ->
+                        MainTemplate ctx endpoint "not implemented"
+                            [ div [] [ text "implementation pending" ] ]
+            )
+
