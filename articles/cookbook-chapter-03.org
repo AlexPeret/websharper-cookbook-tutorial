@@ -358,3 +358,7 @@ are going to fix that in the coming sections.
 
 By the way, test the logout button at the Login page, as well.
 
+
+|----------+----+------|
+| [[./cookbook-chapter-02.org][previous]] | [[../README.md][up]] | [[./cookbook-chapter-04.org][next]] |
+|----------+----+------|

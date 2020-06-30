@@ -270,3 +270,8 @@ This is what you might see:
 #+NAME:   fig:WST-PRINT0002
 [[./images/cookbook-chapter-01-image-01.png]]
 
+
+|----------+----+------|
+| [[./cookbook-introduction.org][previous]] | [[../README.md][up]] | [[./cookbook-chapter-02.org][next]] |
+|----------+----+------|
+

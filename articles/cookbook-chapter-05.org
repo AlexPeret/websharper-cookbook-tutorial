@@ -202,3 +202,7 @@ Finally, edit the Main.fs file and reference the new listing page:
             ...
 #+END_SRC
 
+
+|----------+----+------|
+| [[./cookbook-chapter-04.org][previous]] | [[../README.md][up]] | [[./cookbook-chapter-06.org][next]] |
+|----------+----+------|

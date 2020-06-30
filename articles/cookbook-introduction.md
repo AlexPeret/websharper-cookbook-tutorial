@@ -1,19 +1,10 @@
+- [Introduction](#sec-1)
 
-# Table of Contents
+# Introduction<a id="sec-1"></a>
 
-1.  [Introduction](#org82a2427)
+This tutorial will guide you throughout the programming of a simple web application using WebSharper framework.
 
-
-<a id="org82a2427"></a>
-
-# Introduction
-
-This tutorial will guide you throughout the programming of a simple web
-application using WebSharper framework.
-
-In this tutorial, we are going to build a web application using the WebSharper
-framework. The final application is a mix of server-side and client-side
-implementation with authentication and basic listing and CRUD features.
+In this tutorial, we are going to build a web application using the WebSharper framework. The final application is a mix of server-side and client-side implementation with authentication and basic listing and CRUD features.
 
 The topics we are about to cover are:
 
@@ -24,6 +15,6 @@ The topics we are about to cover are:
 -   templates: composition using templates
 -   extension: how to create a simple extension using WIG language (pending)
 
-We are going to use WebSharper 4.6 with .NET Core 3.1, and mostly the command
-line to setup and run the application.
+We are going to use WebSharper 4.6 with .NET Core 3.1, and mostly the command line to setup and run the application.
 
+| [up](../README.md) | [next](./cookbook-chapter-01.md) |

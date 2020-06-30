@@ -352,3 +352,6 @@ task for the reader.
 Hopefully, it helped you to get started to WebSharper framework and from here,
 you can take a look at the official documentation.
 
+|----------+----|
+| [[./cookbook-chapter-05.org][previous]] | [[../README.md][up]] |
+|----------+----|

@@ -250,3 +250,8 @@ solution again.
 Rebuild the project and open it on the browser again. Now you might see the
 .css/.fs resources with the browser Inspector.
 
+
+|----------+----+------|
+| [[./cookbook-chapter-01.org][previous]] | [[../README.md][up]] | [[./cookbook-chapter-03.org][next]] |
+|----------+----+------|
+

@@ -308,3 +308,7 @@ And this is the new Main value content:
 #+END_SRC
 
 We are done for now. Rebuild the project and test it again.
+
+|----------+----+------|
+| [[./cookbook-chapter-03.org][previous]] | [[../README.md][up]] | [[./cookbook-chapter-05.org][next]] |
+|----------+----+------|
