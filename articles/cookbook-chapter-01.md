@@ -43,8 +43,6 @@ $ dotnet run --project WebSharperTutorial.FrontEnd/WebSharperTutorial.FrontEnd.f
 
 If you load the test page at <http://localhost:5000/>, you might see the following page at your default browser now:
 
-<screenshot da tela inicial do template>
-
 ![img](./images/websharper-default-project.png "WebSharper Default Project")
 
 ## Project requirements<a id="sec-1-2"></a>
@@ -72,7 +70,7 @@ Below, the list of requirements for each page
     -   navbar with:
         -   link to itself
         -   logout
-    -   table for listing the results
+    -   table for listing data
 -   form page
     -   navbar: same as listing page
     -   form
@@ -87,7 +85,7 @@ Additional requirements:
 
 First, let's create the basic HTML frame for the application. For this, we are going the make use of WebSharper's template engine.
 
-First, create an new folder named "templates" at the WebSharperTutorial.FrontEnd folder:
+Let's create a new folder named "templates" at the WebSharperTutorial.FrontEnd folder:
 
 ```bash
 $ cd WebSharperTutorial.FrontEnd 
@@ -97,7 +95,7 @@ $ mv Main.html templates/
 
 Now, open the templates/Main.html file with your chosen editor and delete its content. We are going to create a new one from scratch.
 
-As we are going to use Bootstrap 4, let's copy and paste the recommended template from their site and paste it at the templates/Main.html file
+As we are going to use Bootstrap 4, let's copy and paste the recommended template from their website and paste it in templates/Main.html file
 
 ```html
 <!doctype html>
@@ -130,11 +128,11 @@ This is a good time to introduce the WebSharper's template engine.
 
 WebSharper allows us to create a template from a HTML file through the F# Type Provider.
 
-The template, once load in your code, allows composition with other elements and also to change its content through the ws-holes and ws-replace attributes. The difference between them, is the latter will replace its container element, while the former will insert the new content into the container element.
+The template, once load in your code, allows composition with other elements and also to change its content through the ***ws-holes*** and ***ws-replace*** attributes. The difference between them, is the latter will replace its container element, while the former will insert the new content into the container element.
 
-WebSharper also provides three special attributes: scripts, meta and styles. These attributes are reserved ones used by the framework to inject embedded resources and the transpiled scripts.
+WebSharper also provides three special attributes: ***scripts***, ***meta*** and ***styles***. These attributes are reserved ones used by the framework to inject embedded resources and the transpiled scripts into the template files.
 
-Let's add them to the Main.html template, by replacing it by the following:
+Let's add them to the ***Main.html*** template, by replacing it by the following:
 
 ```html
 <!doctype html>
@@ -166,13 +164,13 @@ Let's add them to the Main.html template, by replacing it by the following:
 </html>
 ```
 
-Notice the ${Title} placeholder at the <title> HTML tag. This is used for readonly data. WebSharper also provides placeholders for reactive variables, which we are going to rely on, when build the listing and form pages.
+Notice the **${Title}** placeholder at the **<title>** HTML tag. This is used for readonly data. WebSharper also provides placeholders for reactive variables, which we are going to rely on, when building the listing and form pages.
 
-Also, there is a div with the ws-replace="Body" attribute. This placeholder will be used by to render the pages' contents.
+Also, there is a ***div*** with the **ws-replace="Body"** attribute. This placeholder will be used by to render the pages' contents.
 
 ## Consuming the basic HTML template<a id="sec-1-4"></a>
 
-Now the we have the basic HTML frame create, the next step is to use it from the F# code.
+Now that we have the basic HTML frame create, the next step is to use it from the F# code.
 
 Let's create a new Main.fs file to load and render this template. Also remove those created by the WebSharper template project.
 
@@ -184,6 +182,8 @@ $ rm Client.fs
 $ rm Site.fs
 $ touch Main.fs
 ```
+
+> Note: the ***touch*** command just create a new file, on Linux. If you are using Windows, just create a new file using your editor or IDE.
 
 Edit the WebSharperTutorial.FrontEnd.fsproj file, remove the reference for the deleted files and add a reference to the new one. This is how mine looks like after this change:
 
@@ -211,7 +211,9 @@ Edit the WebSharperTutorial.FrontEnd.fsproj file, remove the reference for the d
 </Project>
 ```
 
-Edit the Main.fs file and add the following code:
+> Note: from now on, whenever you create a new file, make sure to add it into the ***.fsproj*** file, as I'm not going to mention it anymore.
+
+Edit the ***Main.fs*** file and add the following code:
 
 ```fsharp
 namespace WebSharperTutorial.FrontEnd

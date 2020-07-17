@@ -1,16 +1,26 @@
 * Chapter 02 - Routing and Resources
 ** the routing system
-At this point, we had created the basic structure for the project. In this
+At this point, we've created the basic structure for the project. In this
 section, we are going to add support for navigation among web pages and also see
 how to use embedded resources.
 
-Additionally, we are going to change the Main.fs file to handle the routes and
+Additionally, we are going to change the */Main.fs/* file to handle the routes and
 render the corresponding page.
+
+#+CAPTION: The home and access denied pages
+#+NAME:   fig:WST-PRINT0001
+[[./images/cookbook-chapter-02-image-01.png]]
 
 Let's get started.
 
-Create a new file named Routes.fs and add it to the .fsproj file. This file must
-come before the Main.fs.
+Create a new file named */Routes.fs/* and add it to */.fsproj/* file. This file must
+come before the */Main.fs/*.
+
+#+BEGIN_QUOTE
+Note: from now on, whenever you create a new file, make sure to add it into
+the */.fsproj/* file, as I'm not going to mention it anymore.
+#+END_QUOTE
+
 
 #+BEGIN_SRC xml
   <ItemGroup>
@@ -20,7 +30,7 @@ come before the Main.fs.
     ...
 #+END_SRC
 
-Edit the Routes.fs file and add to following content to it:
+Edit the */Routes.fs/* file and add to following content to it:
 
 #+BEGIN_SRC fsharp
 namespace WebSharperTutorial.FrontEnd
@@ -42,22 +52,23 @@ module Routes =
 
 #+END_SRC
 
-As you can see, we created 5 endpoints, one for each page in the application.
+As you can see, we've created 5 endpoints, one for each page in the application.
 
-Notice the [<JavaScript>] attribute at the EndPoint type. This attribute is used
-by WebSharper compiler to transpile this type into JavaScript equivalent one.
+Notice the src_fsharp[:exports code]{ [<JavaScript>] } attribute at the *EndPoint* type.
+This attribute is used by WebSharper compiler to transpile this type onto the JavaScript
+equivalent one.
 
-The [<EndPoint>] attribute before each discriminated union option makes them
-available to WebSharper routing engine.
+The src_fsharp[:exports code]{ [<EndPoint>] } attribute before each discriminated union
+option makes them available to WebSharper routing engine.
 
 This attribute provides a few options to setup the route for each endpoint, such
 as declaring the HTTP method (GET,POST) and the URL path, e.g. 
-[<EndPoint "POST /private/form">]
+src_fsharp[:exports code]{ [<EndPoint "POST /private/form">] }
 
 But for this tutorial, we are going to use a more advantage configuration, by
-customizing the Router<'T> mapping.
+customizing the src_fsharp[:exports code]{Router<'T>} mapping.
 
-The next code lists this customized router. Add it to the end of the Routes.fs
+The next code lists this customized router. Add it to the end of the */Routes.fs/*
 file:
 
 #+BEGIN_SRC fsharp
@@ -85,19 +96,20 @@ file:
 
 #+END_SRC
 
-The SiteRouter value has two functions named link and route. The link function
-is responsible for mapping the EndPoint to the URL path, while the route
-function maps the path back to the EndPoint. 
+The src_fsharp[:exports code]{ SiteRouter } value has two functions named link and route.
+The link function is responsible for mapping the *EndPoint* to the URL path, while the route
+function maps the path back to the *EndPoint*. 
 
-The last line, creates a Router using the WebSharper function ```Router.Create```,
-using both functions link and route. There are several options for build
-customized routes, including the ```Router.CreateWithQuery``` function, which
-might be useful when you need to setup dynamic URLs.
+The last line, creates a Router using the WebSharper function src_fsharp[:exports code]{Router.Create},
+using both functions src_fsharp[:exports code]{link} and src_fsharp[:exports code]{route}. There are
+several options for build customized routes, including the src_fsharp[:exports code]{ Router.CreateWithQuery }
+function, which might be useful when you need to setup dynamic URLs.
 
 This routing model allows full control over the routing options.
 
 Finally, we need to install the router, so WebSharper can use it. Notice that we
-turn off the AccessDenied EndPoint by using the Router.Slice utility function.
+turn off the src_fsharp[:exports code]{AccessDenied} *EndPoint* by using the 
+src_fsharp[:exports code]{Router.Slice} utility function.
 
 #+BEGIN_SRC fsharp
     [<JavaScript>]
@@ -117,14 +129,15 @@ turn off the AccessDenied EndPoint by using the Router.Slice utility function.
 
 #+END_SRC
 
-This function returns a Var<EndPoint> value, which allows us to navigation among
-the EndPoints. The Router.Install is responsible for build such object.
+This function returns a src_fsharp[:exports code]{Var<EndPoint>} value, which allows
+us to navigation among the EndPoints. The src_fsharp[:exports code]{ Router.Install } 
+function is responsible for building such object.
 
-Note: Var reffers to the Reactive Variable type provided by WebSharper and will
+Note: *Var* refers to the Reactive Variable type provided by WebSharper and will
 be introduced later in this tutorial.
 
-The last step here is to replace the EndPoint in the Main.fs file by this new
-one:
+The last step here is to replace the src_fsharp[:exports code]{EndPoint} type in
+the */Main.fs/* file by this new one:
 
 #+BEGIN_SRC fsharp
 // Delete this type
@@ -156,10 +169,10 @@ You might want to build an run the project to test this changes. Try other route
 to see if it works (e.g. http://localhost:5000/access-denied).
 
 ** embedding resources
-The basic template references some external .css and .js files. In this section,
+The basic template references some external */.css/* and */.js/* files. In this section,
 we are going to replace them by WebSharper's resource system.
 
-Let's create a new file named Resources.fs and add to the .fsproj file, as
+Let's create a new file named */Resources.fs/* and add to the */.fsproj/* file, as
 usual.
 
 For now, we are going to embed only the Bootstrap files. Also, we are
@@ -169,9 +182,9 @@ framework (pending: add app.config and change JQuery's path).
 First, the Bootstrap files.
 
 Download the Bootstrap bundle file from the their website and place the dist
-content at <project-path>/wwwroot/vendor/bootstrap/ directory.
+content at src_shell[:exports code]{<project-path>/wwwroot/vendor/bootstrap/} directory.
 
-Now, add the following code to the Resources.fs file:
+Now, add the following code to the */Resources.fs/* file:
 
 #+BEGIN_SRC fsharp
 namespace WebSharperTutorial.FrontEnd
@@ -205,13 +218,13 @@ module AppResources =
 
 #+END_SRC
 
-Notice that we also created a resource (FrontEndApp) for Javascript and
-stylesheet used by our application. This files must be created at
-<project-path>/wwwroot/app/.
+Notice that we also created a resource (src_fsharp[:exports code]{FrontEndApp}) for
+Javascript and stylesheet used by our application. This files must be created at
+src_fsharp[:exports code]{<project-path>/wwwroot/app/}.
 
-The last step is to remove the reference from the template/Main.html file
+The last step is to remove the reference from the */template/Main.html/* file
 
-#+BEGIN_SRC xml
+#+BEGIN_SRC html
     <!-- remove the lines below -->
 
     <!-- Bootstrap CSS -->
@@ -225,17 +238,24 @@ The last step is to remove the reference from the template/Main.html file
 Let's test it. Build and run the application again and check the source code
 with the browser Inspector.
 
+#+BEGIN_QUOTE
 Note: you might need to run "dotnet clean" before build it, to get the template page
 updated.
+#+END_QUOTE
 
 If you check the browser inspector, you will notice both Bootstrap and
-application .css/.fs files wheren't loaded.
+application */.css/.fs/* files wheren't loaded.
 
-This is a very important point about how WebSharper client code works. These
+#+CAPTION: Inspector: the resources files weren't load.
+#+NAME:   fig:WST-PRINT0002
+[[./images/cookbook-chapter-02-image-02.png]]
+
+
+*This is a very important point about how WebSharper client code works*: these
 resources won't be loaded until any WebSharper's client code is invoked. And you
 as might recall, we only render a static page built on the server, until now.
 
-To make it work, change the following line in the Main.fs file and rebuild the
+To make it work, change the following line in the */Main.fs/* file and rebuild the
 solution again.
 #+BEGIN_SRC fsharp
     ...
@@ -248,7 +268,11 @@ solution again.
 #+END_SRC
 
 Rebuild the project and open it on the browser again. Now you might see the
-.css/.fs resources with the browser Inspector.
+*/.css/.fs/* resources with the browser Inspector.
+
+#+CAPTION: Inspector: the resources files were load.
+#+NAME:   fig:WST-PRINT0003
+[[./images/cookbook-chapter-02-image-03.png]]
 
 
 |----------+----+------|
