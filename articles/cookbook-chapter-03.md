@@ -6,13 +6,15 @@
 
 # Chapter 03 - ASP.NET Authentication<a id="sec-1"></a>
 
-WebSharper relies on ASP.NET Form Authentication for security. In this section, we are going to create a page with a form, so the user can provide his credentions to get logged in the application.
+WebSharper relies on ASP.NET Form Authentication for security. In this section, we are going to create a page containing a form, so the user can provide his credentials to get logged in the application.
 
 Also, we are going to setup the authentication middleware to protect the listing and form EndPoints.
 
+![img](./images/cookbook-chapter-03-image-01.png "The login page")
+
 ## Authentication middleware<a id="sec-1-1"></a>
 
-Edit the Startup.fs file and add the following entry in the ConfigureServices method:
+Edit the ***Startup.fs*** file and add the following entry in the ConfigureServices method:
 
 ```fsharp
 member this.ConfigureServices(services: IServiceCollection) =
@@ -24,7 +26,7 @@ member this.ConfigureServices(services: IServiceCollection) =
 
 ```
 
-Add a new file to the project named Auth.js with the following content:
+Add a new file to the project named ***Auth.js*** with the following content:
 
 ```fsharp
 namespace WebSharperTutorial.FrontEnd
@@ -86,7 +88,7 @@ module Auth =
 
 ```
 
-This will require the following packages in your .fsproj file:
+This will require the following packages in your ***.fsproj*** file:
 
 ```xml
   ...
@@ -100,9 +102,9 @@ This will require the following packages in your .fsproj file:
 
 Now, we need to protect the EndPoints based on the user credentials.
 
-WebSharper provides the Sitelet.Protect function to secure endpoints, but in this tutorial, we are going to do it manually.
+WebSharper provides the `Sitelet.Protect` function to secure endpoints, but in this tutorial, we are going to do it manually.
 
-Edit the Main.fs file and replace the Main value by the following one:
+Edit the ***Main.fs*** file and replace the `Main` value by the following one:
 
 ```fsharp
 [<Website>]
@@ -147,7 +149,7 @@ let Main =
 
 ```
 
-This is pretty straightforward. We are allowing all endpoints to the authenticated user and allowing a few endpoints for the not authenticated one.
+This is pretty straightforward. We are allowing all endpoints to the authenticated user and allowing only a few endpoints for the not authenticated one.
 
 ## Login and Logout features<a id="sec-1-3"></a>
 
@@ -160,9 +162,9 @@ Add two new files to the project:
 -   Page.Login.fs
 -   templates/Page.Login.html
 
-Remember to add both references to the .fsproj file.
+Remember to add both references to the ***.fsproj*** file.
 
-The HTML page will have the following layout:
+The HTML page has the following layout:
 
 ```html
 <div class="p-md-5">
@@ -196,7 +198,7 @@ The HTML page will have the following layout:
 
 ```
 
-And this is the code for the Page.Login.fs file:
+Below, the code for the ***Page.Login.fs*** file:
 
 ```fsharp
 namespace WebSharperTutorial.FrontEnd.Pages
@@ -280,23 +282,25 @@ module PageLogin =
 
 ```
 
-This code has a lot of WebSharper features that I want to highlight.
+This code has a lot of *WebSharper* features that I want to highlight.
 
-First, we are referencing the HTML template as we did before for the main HTML template.
+First, we are referencing the HTML template as we did before, for the main HTML template.
 
-WebSharper template system can transform an HTML file into the Doc abstraction. This is a great feature as it allows for composition, as you can see in the Main function.
+WebSharper template system can transform an HTML file into the `Doc` abstraction. This is a great feature as it allows for composition, as you can see in the Main function.
 
-Also, the template system can tie the Reactive Variables to the ws-var holes, making it possible to synchronize the value from the Reactive Variable with the respective DOM element.
+Also, the template system can tie the *Reactive Variables* to the `ws-var` holes, making it possible to synchronize the value from the Reactive Variable with the respective DOM element and backwards.
 
-Another cool feature is regarding the DOM element event handler. As you see, the template system provides a function for each ws-on\* attribute in the HTML template, so you can deal with the client events (refer to the OnLogin and OnLogout functions in the code).
+Another cool feature is regarding the DOM element event handler. As you see, the template system provides a function for each `ws-on*` attribute in the HTML template, so you can deal with the client events (refer to the `OnLogin` and `OnLogout` functions in the code).
 
-There are two more features the worth highlighting. First one is regarded to the JQuery call. WebSharper has an extension system which provides bindings to existing Javascript libraries (although, the JQuery is built-in into the WebSharper's core), through the WIG language.
+There are two more features that worth highlighting. First one is regarded to the *JQuery* call. WebSharper has an extension system which provides bindings to existing Javascript libraries (although, the *JQuery* is built-in into the WebSharper's core), through the WIG language.
 
-The second one, is the View. The AlertBox function derives a Doc abstraction based on the current state of the rvStatusMsg parameter, a Reactive Variable.
+The second one, is the `View`. The `AlertBox` function returns a Doc abstraction based on the current state of the `rvStatusMsg` parameter, a *Reactive Variable*.
 
-Reactive Variables has a inner property to expose a View from it, which will change whenever the Reactive Variable's content change. A View is intended to be used at the DOM. In the AlertBox function, we are build the HTML dynamically, according to the rvStatusMsg content.
+*Reactive Variables* has a inner property to expose a *View* from it, which will change whenever the Reactive Variable's content change. A *View* is intended to be used at the DOM. In the `AlertBox` function, we are building the HTML dynamically, according to the `rvStatusMsg` content.
 
-Finally, change the Main.fs again to load this page:
+> Tip: a View only takes effect if embedded into the DOM. If you want to take action whenever a *Reactive Variable* changes, use the `View.Sink` fuction, instead.
+
+Finally, change the ***Main.fs*** again to load this page:
 
 ```fsharp
 ...
@@ -328,16 +332,16 @@ module Site =
 
 ```
 
-The client function will render WebSharper.UI.Client code at the server side.
+The `client` function will render WebSharper.UI.Client code at the server side.
 
-In the block above, we are installing the router and passing it to the PageLogin. If you check the PageLogin code again, you will notice the [<JavaScript>] attribute at the module level. This is required whenever you are using the client function.
+In the block above, we are installing the router and passing it to the `PageLogin`. If you check the `PageLogin` code again, you will notice the `[<JavaScript>]` attribute at the module level. This is required whenever you are using the client functions and types.
 
-Now, build the project again and load the /login page at the bar address to test the page. Use admin/admin as login and password.
+Now, build the project again and load the **/login** page at the bar address to test the page. Use *admin/admin* as login and password.
 
-After getting logged, you will notice the URL address will be replace by the /private/listing one, while the page content remains the same. But if you reload the page, you might see the Listing page content.
+After getting logged, you will notice the URL address will be replace by the */private/listing* one, while the page content remains the same. But if you reload the page, you might see the Listing page content.
 
-This happens because we didn't installed the router for the Listing EndPoint. We are going to fix that in the coming sections.
+This happens because we didn't installed the router for the **Listing EndPoint** yet. We are going to fix that in the coming sections.
 
 By the way, test the logout button at the Login page, as well.
 
-| [previous](./cookbook-chapter-02.md) | [up](../README.md) | [next](./cookbook-chapter-04.md) |
+| [previous](./cookbook-chapter-02.md) | [up](../README.md) | [Chapter 04 - Site Navigation and more about the routing system](./cookbook-chapter-04.md) |

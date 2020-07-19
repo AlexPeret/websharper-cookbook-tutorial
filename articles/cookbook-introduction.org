@@ -17,7 +17,7 @@ The topics we are about to cover are:
 We are going to use WebSharper 4.6 with .NET Core 3.1, and mostly the command
 line to setup and run the application.
 
-|----+------|
-| [[../README.md][up]] | [[./cookbook-chapter-01.org][next]] |
-|----+------|
+|----+--------------------------|
+| [[../README.md][up]] | [[./cookbook-chapter-01.org][Chapter 01 - Foundations]] |
+|----+--------------------------|
 

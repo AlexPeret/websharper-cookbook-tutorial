@@ -275,7 +275,7 @@ This is what you might see:
 [[./images/cookbook-chapter-01-image-01.png]]
 
 
-|----------+----+------|
-| [[./cookbook-introduction.org][previous]] | [[../README.md][up]] | [[./cookbook-chapter-02.org][next]] |
-|----------+----+------|
+|----------+----+------------------------------------|
+| [[./cookbook-introduction.org][previous]] | [[../README.md][up]] | [[./cookbook-chapter-02.org][Chapter 02 - Routing and Resources]] |
+|----------+----+------------------------------------|
 

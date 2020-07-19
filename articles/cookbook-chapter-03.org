@@ -1,13 +1,17 @@
 * Chapter 03 - ASP.NET Authentication
 WebSharper relies on ASP.NET Form Authentication for security. In this section,
-we are going to create a page with a form, so the user can provide his
-credentions to get logged in the application.
+we are going to create a page containing a form, so the user can provide his
+credentials to get logged in the application.
 
 Also, we are going to setup the authentication middleware to protect the listing
 and form EndPoints.
 
+#+CAPTION: The login page
+#+NAME:   fig:WST-PRINT0001
+[[./images/cookbook-chapter-03-image-01.png]]
+
 ** Authentication middleware
-Edit the Startup.fs file and add the following entry in the ConfigureServices
+Edit the */Startup.fs/* file and add the following entry in the ConfigureServices
 method:
 
 #+BEGIN_SRC fsharp
@@ -20,7 +24,7 @@ method:
 
 #+END_SRC
 
-Add a new file to the project named Auth.js with the following content:
+Add a new file to the project named */Auth.js/* with the following content:
 
 #+BEGIN_SRC fsharp
 namespace WebSharperTutorial.FrontEnd
@@ -82,7 +86,7 @@ module Auth =
 
 #+END_SRC
 
-This will require the following packages in your .fsproj file:
+This will require the following packages in your */.fsproj/* file:
 
 #+BEGIN_SRC xml
     ...
@@ -95,10 +99,10 @@ This will require the following packages in your .fsproj file:
 ** Securing the EndPoints
 Now, we need to protect the EndPoints based on the user credentials.
 
-WebSharper provides the Sitelet.Protect function to secure endpoints, but in
+WebSharper provides the src_fsharp[:exports code]{Sitelet.Protect} function to secure endpoints, but in
 this tutorial, we are going to do it manually.
 
-Edit the Main.fs file and replace the Main value by the following one:
+Edit the */Main.fs/* file and replace the src_fsharp[:exports code]{Main} value by the following one:
 
 #+BEGIN_SRC fsharp
     [<Website>]
@@ -144,7 +148,7 @@ Edit the Main.fs file and replace the Main value by the following one:
 #+END_SRC
 
 This is pretty straightforward. We are allowing all endpoints to the
-authenticated user and allowing a few endpoints for the not authenticated one.
+authenticated user and allowing only a few endpoints for the not authenticated one.
 
 ** Login and Logout features
 Next, we need to build the login page and add a temporary logout button into it
@@ -156,9 +160,9 @@ Add two new files to the project:
 - Page.Login.fs
 - templates/Page.Login.html
 
-Remember to add both references to the .fsproj file.
+Remember to add both references to the */.fsproj/* file.
 
-The HTML page will have the following layout:
+The HTML page has the following layout:
 
 #+BEGIN_SRC html
 <div class="p-md-5">
@@ -192,7 +196,7 @@ The HTML page will have the following layout:
 
 #+END_SRC
 
-And this is the code for the Page.Login.fs file:
+Below, the code for the */Page.Login.fs/* file:
 
 #+BEGIN_SRC fsharp
 namespace WebSharperTutorial.FrontEnd.Pages
@@ -276,38 +280,44 @@ module PageLogin =
 
 #+END_SRC
 
-This code has a lot of WebSharper features that I want to highlight.
+This code has a lot of /WebSharper/ features that I want to highlight.
 
-First, we are referencing the HTML template as we did before for the main HTML
+First, we are referencing the HTML template as we did before, for the main HTML
 template.
 
-WebSharper template system can transform an HTML file into the Doc abstraction.
+WebSharper template system can transform an HTML file into the src_fsharp[:exports code]{Doc} abstraction.
 This is a great feature as it allows for composition, as you can see in the Main
 function.
 
-Also, the template system can tie the Reactive Variables to the ws-var holes,
+Also, the template system can tie the /Reactive Variables/ to the src_fsharp[:exports code]{ws-var} holes,
 making it possible to synchronize the value from the Reactive Variable with the
-respective DOM element.
+respective DOM element and backwards.
 
 Another cool feature is regarding the DOM element event handler. As you see, the
-template system provides a function for each ws-on* attribute in the HTML
-template, so you can deal with the client events (refer to the OnLogin and
-OnLogout functions in the code).
+template system provides a function for each src_fsharp[:exports code]{ws-on*} attribute in the HTML
+template, so you can deal with the client events (refer to the src_fsharp[:exports code]{OnLogin} and
+src_fsharp[:exports code]{OnLogout} functions in the code).
 
-There are two more features the worth highlighting. First one is regarded to the
-JQuery call. WebSharper has an extension system which provides bindings to
-existing Javascript libraries (although, the JQuery is built-in into the
+There are two more features that worth highlighting. First one is regarded to the
+/JQuery/ call. WebSharper has an extension system which provides bindings to
+existing Javascript libraries (although, the /JQuery/ is built-in into the
 WebSharper's core), through the WIG language.
 
-The second one, is the View. The AlertBox function derives a Doc abstraction
-based on the current state of the rvStatusMsg parameter, a Reactive Variable.
+The second one, is the src_fsharp[:exports code]{View}. The src_fsharp[:exports code]{AlertBox}
+function returns a Doc abstraction based on the current state of the src_fsharp[:exports code]{rvStatusMsg}
+parameter, a /Reactive Variable/.
 
-Reactive Variables has a inner property to expose a View from it, which will
-change whenever the Reactive Variable's content change. A View is intended to be
-used at the DOM. In the AlertBox function, we are build the HTML dynamically,
-according to the rvStatusMsg content.
+/Reactive Variables/ has a inner property to expose a /View/ from it, which will
+change whenever the Reactive Variable's content change. A /View/ is intended to be
+used at the DOM. In the src_fsharp[:exports code]{AlertBox} function, we are building
+the HTML dynamically, according to the src_fsharp[:exports code]{rvStatusMsg} content.
 
-Finally, change the Main.fs again to load this page:
+#+BEGIN_QUOTE
+Tip: a View only takes effect if embedded into the DOM. If you want to take action whenever
+a /Reactive Variable/ changes, use the src_fsharp[:exports code]{View.Sink} fuction, instead.
+#+END_QUOTE
+
+Finally, change the */Main.fs/* again to load this page:
 
 #+BEGIN_SRC fsharp
 ...
@@ -339,26 +349,27 @@ module Site =
 
 #+END_SRC
 
-The client function will render WebSharper.UI.Client code at the server side.
+The src_fsharp[:exports code]{client} function will render WebSharper.UI.Client
+code at the server side.
 
 In the block above, we are installing the router and passing it to the
-PageLogin. If you check the PageLogin code again, you will notice the
-[<JavaScript>] attribute at the module level. This is required whenever you are
-using the client function.
+src_fsharp[:exports code]{PageLogin}. If you check the src_fsharp[:exports code]{PageLogin}
+code again, you will notice the src_fsharp[:exports code]{[<JavaScript>]} attribute
+at the module level. This is required whenever you are using the client functions and types.
 
-Now, build the project again and load the /login page at the bar address to test
-the page. Use admin/admin as login and password.
+Now, build the project again and load the */login* page at the bar address to test
+the page. Use /admin/admin/ as login and password.
 
 After getting logged, you will notice the URL address will be replace
-by the /private/listing one, while the page content remains the same. But if you
+by the //private/listing/ one, while the page content remains the same. But if you
 reload the page, you might see the Listing page content.
 
-This happens because we didn't installed the router for the Listing EndPoint. We
+This happens because we didn't installed the router for the *Listing EndPoint* yet. We
 are going to fix that in the coming sections.
 
 By the way, test the logout button at the Login page, as well.
 
 
-|----------+----+------|
-| [[./cookbook-chapter-02.org][previous]] | [[../README.md][up]] | [[./cookbook-chapter-04.org][next]] |
-|----------+----+------|
+|----------+----+----------------------------------------------------------------|
+| [[./cookbook-chapter-02.org][previous]] | [[../README.md][up]] | [[./cookbook-chapter-04.org][Chapter 04 - Site Navigation and more about the routing system]] |
+|----------+----+----------------------------------------------------------------|

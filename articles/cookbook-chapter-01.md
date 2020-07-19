@@ -172,7 +172,7 @@ Also, there is a ***div*** with the **ws-replace="Body"** attribute. This placeh
 
 Now that we have the basic HTML frame create, the next step is to use it from the F# code.
 
-Let's create a new Main.fs file to load and render this template. Also remove those created by the WebSharper template project.
+Let's create a new ***Main.fs*** file to load and render this template. Also remove those created by the WebSharper template project.
 
 From the WebSharperTutorial.FrontEnd folder:
 
@@ -210,8 +210,6 @@ Edit the WebSharperTutorial.FrontEnd.fsproj file, remove the reference for the d
 
 </Project>
 ```
-
-> Note: from now on, whenever you create a new file, make sure to add it into the ***.fsproj*** file, as I'm not going to mention it anymore.
 
 Edit the ***Main.fs*** file and add the following code:
 
@@ -267,4 +265,4 @@ This is what you might see:
 
 ![img](./images/cookbook-chapter-01-image-01.png "The Empty Layout")
 
-| [previous](./cookbook-introduction.md) | [up](../README.md) | [next](./cookbook-chapter-02.md) |
+| [previous](./cookbook-introduction.md) | [up](../README.md) | [Chapter 02 - Routing and Resources](./cookbook-chapter-02.md) |

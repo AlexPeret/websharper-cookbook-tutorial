@@ -210,7 +210,7 @@ Let's test it. Build and run the application again and check the source code wit
 
 > Note: you might need to run "dotnet clean" before build it, to get the template page updated.
 
-If you check the browser inspector, you will notice both Bootstrap and application ***.css*.fs/** files wheren't loaded.
+If you check the browser inspector, you will notice both Bootstrap and application ***.css*** and ***.fs*** files wheren't loaded.
 
 ![img](./images/cookbook-chapter-02-image-02.png "Inspector: the resources files weren't load.")
 
@@ -228,8 +228,8 @@ let HomePage ctx =
 ...
 ```
 
-Rebuild the project and open it on the browser again. Now you might see the ***.css*.fs/** resources with the browser Inspector.
+Rebuild the project and open it on the browser again. Now you might see the ***.css*** and ***.fs*** resources with the browser Inspector.
 
 ![img](./images/cookbook-chapter-02-image-03.png "Inspector: the resources files were load.")
 
-| [previous](./cookbook-chapter-01.md) | [up](../README.md) | [next](./cookbook-chapter-03.md) |
+| [previous](./cookbook-chapter-01.md) | [up](../README.md) | [Chapter 03 - ASP.NET Authentication](./cookbook-chapter-03.md) |

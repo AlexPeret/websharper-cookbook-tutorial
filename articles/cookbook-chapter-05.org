@@ -1,13 +1,17 @@
-* Chapter 05 - The listing page
+* TODO Chapter 05 - The listing page
 We are almost done. We have all the logic for routing, navigation and
 authentication put together. Now, it is time to create a few pages to emulate a
 data driven application.
 
 The first task is to build a listing page. This page will make a remote call to
-the server to get some data and render it as a table.
+the server to get some data and render it as a HTML table.
 
 For each line, we are going to add a link to redirect the page to the form
-passing the respective code, so we can open it from there.
+passing the respective record's code, so we can open it from there.
+
+#+CAPTION: The listing page
+#+NAME:   fig:WST-PRINT0001
+[[./images/cookbook-chapter-05-image-01.png]]
 
 Add two new files to the project:
 - templates/Page.Listing.html
@@ -37,11 +41,11 @@ For the template one, add the following code snippet:
 
 #+END_SRC
 
-This snippet introduces a new attribute named ws-template. This attribute
-defines a inner template, which can be instantiated in F# code and composed with
-Doc elements as usual.
+This snippet introduces a new attribute named src_fsharp[:exports code]{ws-template}.
+This attribute defines a inner template, which can be instantiated in F# code and
+composed with /Doc/ elements as usual.
 
-For the Page.Listing.fs file:
+For the */Page.Listing.fs/* file:
 
 #+BEGIN_SRC fsharp
 namespace WebSharperTutorial.FrontEnd.Pages
@@ -106,12 +110,12 @@ module PageListing =
 This page is getting data from the server through a RPC request and is rendering
 a table with its content.
 
-For each line, it instantiate the listingTemplate.RowTemplate class and fill in
-its hole, while setup the OnEdit event, aswell.
+For each line, it instantiate the src_fsharp[:exports code]{listingTemplate.RowTemplate}
+class and fill in its hole, while setup the src_fsharp[:exports code]{OnEdit} event, aswell.
 
-The RPC function is asynchrounous, than it requires the async computation
-expression. The returning result is passed to the Doc.Async function which will
-start the async block and return a Doc abstraction as the final result.
+The RPC function is asynchrounous, than it requires the src_fsharp[:exports code]{async}
+computation expression. The returning result is passed to the src_fsharp[:exports code]{Doc.Async}
+function which will start the async block and return a /Doc/ abstraction as the final result.
 
 For the Server side logic, let's add two new files to the project:
 - DTO.fs
@@ -146,12 +150,12 @@ module DTO =
 
 #+END_SRC
 
-This file contains the Data Transfer Object (DTO) types used to send and receive
-data from between client and server side. The important aspect here is the
-use of [<JavaScript>] attribute, so the WebSharper compiler can transpile it to
-Javascript.
+This file contains the /Data Transfer Object/ (DTO) types used to send and receive
+data between client and server side. The important aspect here is the
+use of src_fsharp[:exports code]{[<JavaScript>]} attribute, so the WebSharper compiler
+can transpile it to /Javascript/.
 
-And for the Server.fs file:
+And for the */Server.fs/* file:
 
 #+BEGIN_SRC fsharp
 namespace WebSharperTutorial.FrontEnd
@@ -180,12 +184,11 @@ module Server =
 
 #+END_SRC
 
-We are generating dummy data for testing. The RPC attribute instructs
-WebSharper to create all the RPC logic for this asynchrounous function, handling
-the conversion of its result to JSON.
+We are generating dummy data for testing. The src_fsharp[:exports code]{RPC} attribute
+instructs /WebSharper/'s compiler to create all the RPC logic for this asynchrounous
+function, handling the conversion of its result to JSON.
 
-Finally, edit the Main.fs file and reference the new listing page:
-
+Finally, edit the */Main.fs/* file and reference the new listing page:
 
 #+BEGIN_SRC fsharp
     ...
@@ -203,6 +206,6 @@ Finally, edit the Main.fs file and reference the new listing page:
 #+END_SRC
 
 
-|----------+----+------|
-| [[./cookbook-chapter-04.org][previous]] | [[../README.md][up]] | [[./cookbook-chapter-06.org][next]] |
-|----------+----+------|
+|----------+----+----------------------------|
+| [[./cookbook-chapter-04.org][previous]] | [[../README.md][up]] | [[./cookbook-chapter-06.org][Chapter 06 - The form page]] |
+|----------+----+----------------------------|

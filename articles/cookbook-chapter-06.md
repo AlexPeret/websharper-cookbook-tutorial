@@ -2,13 +2,15 @@
 
 # Chapter 06 - The form page<a id="sec-1"></a>
 
-For the listing page, we took a straightforward approach by using the Doc.Async function to render the content of the async block.
+For the listing page, we took a straightforward approach by using the `Doc.Async` function to render the content of the async block.
 
-For the form page, we are going the take a different approach, as the page will send data to the server and wait for its response. While waiting for the response, we want to display a spinner component to instruct the user to wait for the request to finish.
+For the form page, we are going the take a different approach, as the page will send data to the server and wait for its response. While waiting for the response, we want it to display a spinner component to instruct the user to wait for the request to finish.
 
-Also, the SaveUser server function will return a Result type, so we can handle any form validation.
+![img](./images/cookbook-chapter-06-image-01.png "The form page")
 
-Let's start by add two new RPC functions to the Server.fs file and some validation functions:
+Also, the `SaveUser` server function will return a `Result` type, so we can handle any form validation.
+
+Let's start by adding two new RPC functions to the ***Server.fs*** file and some validation functions:
 
 ```fsharp
 ...
@@ -65,9 +67,9 @@ let GetUser (code:int64) : Async<Result<User,string>> =
 
 ```
 
-The GetUser function tries to retrieve the user by its code and the SaveUser functions performs some input validation and update the CreateDate field, if everything is ok.
+The `GetUser` function tries to retrieve the user data by its id (code) and the `SaveUser` functions performs some input validation and update the `CreateDate` field, if everything is ok.
 
-Notice that both functions are returning a Result type and WebSharper compiler can deal with it transparently for us.
+Notice that both functions are returning a `Result` type and WebSharper compiler can deal with it transparently for us.
 
 Finally, let's add two more files to the project:
 
@@ -116,9 +118,9 @@ This is the HTML template:
 
 ```
 
-This is pretty similar to the Listing page. It uses the ws-var attributes for editable files. They are used by Reactive Variables and allows two-way data binding.
+This is pretty similar to the Listing page. It uses the `ws-var` attributes for editable content. They are used by *Reactive Variables* and allows two-way data binding.
 
-The code for the Page.Form.fs file is:
+The code for the ***Page.Form.fs*** file is:
 
 ```fsharp
 namespace WebSharperTutorial.FrontEnd.Pages
@@ -249,11 +251,13 @@ module PageForm =
 
 You will find a few helper functions to build the alert box and a spinner and you might want to move them to specialized components, as they are starting to repeat.
 
-The main function brings a new approach to render the page. Instead of relying on the Doc.Async function as we did before, this function makes use of the Submitter class.
+The main function brings a new approach to render the page. Instead of relying on the `Doc.Async` function as we did before, this function makes use of the `Submitter` type.
 
-Also, worth noting that it uses Var.CreateWaiting function. This constructor allows to declare a Reactive Variable without initializing it. Later, once the data is ready, we set its value using the Var.Set function as usual.
+Also, worth noting that it uses `Var.CreateWaiting` function. This constructor allows to declare a *Reactive Variable* without initializing it. Later, once the data is ready, we set its value using the `Var.Set` function as usual.
 
-The Submitter is linked to the Reactive Variable's View and provides a Trigger function. When called, this function will get the latest value from the underlying View (the rvModel one) and update itself.
+> Tip: if you forget to set the value of *Reactive Variable* created with the `Var.CreateWaiting` function, your page won't render.
+
+The `Submitter` is linked to the Reactive Variable's View and provides a `Trigger` function. When called, this function will get the latest value from the underlying View (the `rvModel` one) and update itself.
 
 The form content is render by the Submitter View, as highlighted in the code snippet below:
 
@@ -268,11 +272,11 @@ let content =
 ....
 ```
 
-If the model's Reactive Variable is not ready, the None case will be matched and a spinner wheel will be displayed. Once done, the Some case will render the form content.
+If the model's *Reactive Variable* is not ready, the `None` case will be matched and a spinner wheel will be displayed. Once done, the `Some` case will render the form's content.
 
-One last feature worth highlighting is the use of Lens function. There are two constructors in the code.
+One last feature worth highlighting is the use of `Lens` function. There are two constructors in the code.
 
-The first one uses getter/setter functions to map the mode.Code field back and forth from string and int64. We need this, as the ws-var attribute in the HTML template only accepts the Var<string> type.
+The first one uses getter/setter functions to map the `mode.Code` field back and forth from string and int64. We need this, as the `ws-var` attribute in the HTML template only accepts the `Var<string>` type.
 
 ```fsharp
 ...
@@ -285,7 +289,7 @@ The first one uses getter/setter functions to map the mode.Code field back and f
 
 ```
 
-The second Lens' construtor is using a the V Shorthand and automatically lenses the chosen field for us:
+The second Lens' construtor is using a the **V Shorthand** and automatically lenses the chosen field for us:
 
 ```fsharp
 ...
@@ -294,7 +298,7 @@ The second Lens' construtor is using a the V Shorthand and automatically lenses 
 
 ```
 
-The last change we need is to handle the Form EndPoint at the Main.fs file, by update the RouteClientPage function. This is the final version:
+The last change we need is to handle the **Form EndPoint** at the ***Main.fs*** file, by updating the `RouteClientPage` function. This is the final version:
 
 ```fsharp
 [<JavaScript>]
@@ -324,6 +328,8 @@ let RouteClientPage () =
 ```
 
 That's it! This project has room for many improvements, but I will left this task for the reader.
+
+WebSharper is a very powerful framework and there are several features we didn't cover on this tutorial.
 
 Hopefully, it helped you to get started to WebSharper framework and from here, you can take a look at the official documentation.
 

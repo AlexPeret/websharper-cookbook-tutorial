@@ -17,13 +17,15 @@ As the Home page can be accessed while authenticated and unauthenticated, it wou
 
 So, let's create two versions of the navigation bar.
 
+![img](./images/cookbook-chapter-04-image-01.png "The authenticated and unauthenticated navigation bar")
+
 ### Navigation bar component<a id="sec-1-1-1"></a>
 
 This component has only a single item pointing to the Login page.
 
 We are going the build it using only the Doc abstraction without relying on the template system this time, as this is a short one.
 
-Add a new file to the project named Component.NavigationBar.fs with the following content:
+Add a new file to the project named ***Component.NavigationBar.fs*** with the following content:
 
 ```fsharp
 namespace WebSharperTutorial.FrontEnd.Components
@@ -111,11 +113,11 @@ This component is building a Bootstrap Navbar, based on the user authentication 
 
 It just ask for the user login and build the private or public items for the navbar, accordingly.
 
-For each item, we are passing a label and a callback anonymous function. Most of them are just changing the routing value, except for the Logout one. For the latter, we must do a remote call to the Auth engine to finish the user session. As an alternative, we could had created a Endpoint for the logout logic, but this would require a new route.
+For each item, we are passing a `label` and a anonymous callback function. Most of them are just changing the routing value, except for the `Logout` one. For the latter, we must do a remote call to the Auth engine to finish the user session. As an alternative, we could had created a Endpoint for the logout logic, but this would require a new route with you follow this path.
 
 ### Using the navigation base component<a id="sec-1-1-2"></a>
 
-The next step is to add the component on each page. Edit the Page.Login.fs and add the component to the resulting content in the Main function:
+The next step is to add the component on each page. Edit the ***Page.Login.fs*** and add the component to the resulting content in the `Main` function:
 
 ```fsharp
 ...
@@ -140,11 +142,11 @@ open WebSharperTutorial.FrontEnd.Components // <-- add this line
 
 ```
 
-Note: as we want to prepend the navigation bar component to the content, we created a list and use the Doc.Concat to transform this list of Doc into a single Doc element¹.
+As we want to prepend the navigation bar component to the content, we created a list and use the `Doc.Concat` to transform this list of Doc into a single Doc element¹.
 
 Now, you can go ahead and remove the logout button from the login form, if you want.
 
-Note¹: there is a drawback for this approach. The Doc type has a specialized type named Elt, which provide several functions and fields. By using Doc.Concat, we cannot downcast it to Elt type anymore.
+> Note¹: there is a drawback for this approach. The Doc type has a specialized type named Elt, which provide several functions and fields. By using Doc.Concat, we cannot downcast the resulting aggregate to Elt type anymore.
 
 ## Routing system revisited - client side routing<a id="sec-1-2"></a>
 
@@ -156,23 +158,27 @@ Let's fix it.
 
 ### Client side routing<a id="sec-1-2-1"></a>
 
-The WebSharper Router.InstallRouter creates a Reactive Variable, whose inner type is the EndPoint, a discriminated union defined in the Routes.fs file.
+The WebSharper's `Router.InstallRouter` function creates a *Reactive Variable*, whose inner type is the EndPoint, a discriminated union defined in the ***Routes.fs*** file.
 
-This Reactive Variable is used to control the EndPoint navigation and can be changed by just setting its value as follows:
+This *Reactive Variable* is used to control the EndPoint navigation and can be changed by just setting its value as follows:
 
+```fsharp
 router.Value <- EndPointOption
+```
 
 or
 
+```fsharp
 Var.Set router <- EndPointOption
+```
 
-The router, as a Reactive Variable, provides a field to expose a View and the client side router relies on it to refresh the DOM content (look for the Doc.EmbedView line, in the Main.fs file).
+The router, as a *Reactive Variable*, provides a field to expose a View and the client side router relies on it to refresh the DOM content (look for the `Doc.EmbedView` line, in the ***Main.fs*** file).
 
 But just changing its value won't work, unless we take care of all endpoints.
 
-We are going to refactor the Main.fs file and add two new functions to the Main.fs file and to help us handling the page's content update, whenever the router has its value changed.
+We are going to refactor the ***Main.fs*** file and add two new functions in order to help us handling the page's content update, whenever the router has its value changed.
 
-But before that, let's create a new file named PageHome.fs to better organize our code:
+But before that, let's create a new file named ***PageHome.fs*** to better organize our code:
 
 ```fsharp
 namespace WebSharperTutorial.FrontEnd.Pages
@@ -208,7 +214,7 @@ module PageHome =
 
 ```
 
-And now, edit the Main.fs file and add the following functions before the Main value:
+Edit the ***Main.fs*** file and add the following functions **before** the Main value:
 
 ```fsharp
 ...
@@ -243,7 +249,7 @@ let LoadClientPage ctx title endpoint =
 ...
 ```
 
-And this is the new Main value content:
+And this is the new `Main`'s value content:
 
 ```fsharp
 [<Website>]
@@ -295,4 +301,4 @@ let Main =
 
 We are done for now. Rebuild the project and test it again.
 
-| [previous](./cookbook-chapter-03.md) | [up](../README.md) | [next](./cookbook-chapter-05.md) |
+| [previous](./cookbook-chapter-03.md) | [up](../README.md) | [Chapter 05 - The listing page](./cookbook-chapter-05.md) |

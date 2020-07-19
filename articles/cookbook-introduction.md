@@ -17,4 +17,4 @@ The topics we are about to cover are:
 
 We are going to use WebSharper 4.6 with .NET Core 3.1, and mostly the command line to setup and run the application.
 
-| [up](../README.md) | [next](./cookbook-chapter-01.md) |
+| [up](../README.md) | [Chapter 01 - Foundations](./cookbook-chapter-01.md) |

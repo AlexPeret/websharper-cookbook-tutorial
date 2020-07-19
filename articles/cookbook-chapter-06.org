@@ -1,16 +1,21 @@
 * Chapter 06 - The form page
-For the listing page, we took a straightforward approach by using the Doc.Async
-function to render the content of the async block.
+For the listing page, we took a straightforward approach by using the
+src_fsharp[:exports code]{Doc.Async} function to render the content of
+the async block.
 
 For the form page, we are going the take a different approach, as the page will
 send data to the server and wait for its response. While waiting for the
-response, we want to display a spinner component to instruct the user to wait
+response, we want it to display a spinner component to instruct the user to wait
 for the request to finish.
 
-Also, the SaveUser server function will return a Result type, so we can handle
-any form validation.
+#+CAPTION: The form page
+#+NAME:   fig:WST-PRINT0001
+[[./images/cookbook-chapter-06-image-01.png]]
 
-Let's start by add two new RPC functions to the Server.fs file and some
+Also, the src_fsharp[:exports code]{SaveUser} server function will return a
+src_fsharp[:exports code]{Result} type, so we can handle any form validation.
+
+Let's start by adding two new RPC functions to the */Server.fs/* file and some
 validation functions:
 
 #+BEGIN_SRC fsharp
@@ -68,12 +73,13 @@ validation functions:
 
 #+END_SRC
 
-The GetUser function tries to retrieve the user by its code and the SaveUser
-functions performs some input validation and update the CreateDate field, if
-everything is ok.
+The src_fsharp[:exports code]{GetUser} function tries to retrieve the user data
+by its id (code) and the src_fsharp[:exports code]{SaveUser} functions performs
+some input validation and update the src_fsharp[:exports code]{CreateDate} field,
+if everything is ok.
 
-Notice that both functions are returning a Result type and WebSharper compiler
-can deal with it transparently for us.
+Notice that both functions are returning a src_fsharp[:exports code]{Result} type
+and WebSharper compiler can deal with it transparently for us.
 
 Finally, let's add two more files to the project:
 - Page.Form.fs
@@ -121,11 +127,11 @@ This is the HTML template:
 
 #+END_SRC
 
-This is pretty similar to the Listing page. It uses the ws-var attributes for
-editable files. They are used by Reactive Variables and allows two-way data
-binding.
+This is pretty similar to the Listing page. It uses the src_fsharp[:exports code]{ws-var}
+attributes for editable content. They are used by /Reactive Variables/ and allows two-way
+data binding.
 
-The code for the Page.Form.fs file is:
+The code for the */Page.Form.fs/* file is:
 
 #+BEGIN_SRC fsharp
 namespace WebSharperTutorial.FrontEnd.Pages
@@ -259,16 +265,23 @@ you might want to move them to specialized components, as they are starting to
 repeat.
 
 The main function brings a new approach to render the page. Instead of relying
-on the Doc.Async function as we did before, this function makes use of the
-Submitter class.
+on the src_fsharp[:exports code]{Doc.Async} function as we did before, this
+function makes use of the src_fsharp[:exports code]{Submitter} type.
 
-Also, worth noting that it uses Var.CreateWaiting function. This constructor
-allows to declare a Reactive Variable without initializing it. Later, once the
-data is ready, we set its value using the Var.Set function as usual.
+Also, worth noting that it uses src_fsharp[:exports code]{Var.CreateWaiting}
+function. This constructor allows to declare a /Reactive Variable/ without
+initializing it. Later, once the data is ready, we set its value using the
+src_fsharp[:exports code]{Var.Set} function as usual.
 
-The Submitter is linked to the Reactive Variable's View and provides a Trigger
-function. When called, this function will get the latest value from the
-underlying View (the rvModel one) and update itself.
+#+BEGIN_QUOTE
+Tip: if you forget to set the value of /Reactive Variable/ created with the
+src_fsharp[:exports code]{Var.CreateWaiting} function, your page won't render.
+#+END_QUOTE
+
+The src_fsharp[:exports code]{Submitter} is linked to the Reactive Variable's View
+and provides a src_fsharp[:exports code]{Trigger} function. When called, this
+function will get the latest value from the underlying View
+(the src_fsharp[:exports code]{rvModel} one) and update itself.
 
 The form content is render by the Submitter View, as highlighted in the code
 snippet below:
@@ -284,16 +297,16 @@ snippet below:
     ....
 #+END_SRC
 
-If the model's Reactive Variable is not ready, the None case will be matched and
-a spinner wheel will be displayed. Once done, the Some case will render the form
-content.
+If the model's /Reactive Variable/ is not ready, the src_fsharp[:exports code]{None}
+case will be matched and a spinner wheel will be displayed. Once done,
+the src_fsharp[:exports code]{Some} case will render the form's content.
 
-One last feature worth highlighting is the use of Lens function. There are two
-constructors in the code.
+One last feature worth highlighting is the use of src_fsharp[:exports code]{Lens} function.
+There are two constructors in the code.
 
-The first one uses getter/setter functions to map the mode.Code field back and
-forth from string and int64. We need this, as the ws-var attribute in the HTML
-template only accepts the Var<string> type.
+The first one uses getter/setter functions to map the src_fsharp[:exports code]{mode.Code}
+field back and forth from string and int64. We need this, as the src_fsharp[:exports code]{ws-var}
+attribute in the HTML template only accepts the src_fsharp[:exports code]{Var<string>} type.
 
 #+BEGIN_SRC fsharp
     ...
@@ -306,7 +319,7 @@ template only accepts the Var<string> type.
 
 #+END_SRC
 
-The second Lens' construtor is using a the V Shorthand and automatically lenses the
+The second Lens' construtor is using a the *V Shorthand* and automatically lenses the
 chosen field for us:
 
 #+BEGIN_SRC fsharp
@@ -316,8 +329,8 @@ chosen field for us:
 
 #+END_SRC
 
-The last change we need is to handle the Form EndPoint at the Main.fs file, by
-update the RouteClientPage function. This is the final version:
+The last change we need is to handle the *Form EndPoint* at the */Main.fs/* file, by
+updating the src_fsharp[:exports code]{RouteClientPage} function. This is the final version:
 
 #+BEGIN_SRC fsharp
     [<JavaScript>]
@@ -348,6 +361,9 @@ update the RouteClientPage function. This is the final version:
 
 That's it! This project has room for many improvements, but I will left this
 task for the reader.
+
+WebSharper is a very powerful framework and there are several features we didn't
+cover on this tutorial.
 
 Hopefully, it helped you to get started to WebSharper framework and from here,
 you can take a look at the official documentation.

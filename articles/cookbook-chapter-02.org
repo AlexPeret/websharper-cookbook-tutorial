@@ -244,7 +244,7 @@ updated.
 #+END_QUOTE
 
 If you check the browser inspector, you will notice both Bootstrap and
-application */.css/.fs/* files wheren't loaded.
+application */.css/* and */.fs/* files wheren't loaded.
 
 #+CAPTION: Inspector: the resources files weren't load.
 #+NAME:   fig:WST-PRINT0002
@@ -268,14 +268,14 @@ solution again.
 #+END_SRC
 
 Rebuild the project and open it on the browser again. Now you might see the
-*/.css/.fs/* resources with the browser Inspector.
+*/.css/* and */.fs/* resources with the browser Inspector.
 
 #+CAPTION: Inspector: the resources files were load.
 #+NAME:   fig:WST-PRINT0003
 [[./images/cookbook-chapter-02-image-03.png]]
 
 
-|----------+----+------|
-| [[./cookbook-chapter-01.org][previous]] | [[../README.md][up]] | [[./cookbook-chapter-03.org][next]] |
-|----------+----+------|
+|----------+----+-------------------------------------|
+| [[./cookbook-chapter-01.org][previous]] | [[../README.md][up]] | [[./cookbook-chapter-03.org][Chapter 03 - ASP.NET Authentication]] |
+|----------+----+-------------------------------------|
 

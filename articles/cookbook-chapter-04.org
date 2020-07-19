@@ -12,13 +12,17 @@ would be good to replace it accordingly.
 
 So, let's create two versions of the navigation bar.
 
+#+CAPTION: The authenticated and unauthenticated navigation bar
+#+NAME:   fig:WST-PRINT0001
+[[./images/cookbook-chapter-04-image-01.png]]
+
 *** Navigation bar component
 This component has only a single item pointing to the Login page.
 
 We are going the build it using only the Doc abstraction without relying on the
 template system this time, as this is a short one.
 
-Add a new file to the project named Component.NavigationBar.fs with the
+Add a new file to the project named */Component.NavigationBar.fs/* with the
 following content:
 
 #+BEGIN_SRC fsharp
@@ -109,15 +113,16 @@ status.
 It just ask for the user login and build the private or public items for the
 navbar, accordingly.
 
-For each item, we are passing a label and a callback anonymous function. Most of
-them are just changing the routing value, except for the Logout one. For the
-latter, we must do a remote call to the Auth engine to finish the user session. As
-an alternative, we could had created a Endpoint for the logout logic, but this
-would require a new route.
+For each item, we are passing a src_fsharp[:exports code]{label} and a anonymous
+callback function. Most of them are just changing the routing value, except for
+the src_fsharp[:exports code]{Logout} one. For the latter, we must do a remote call
+to the Auth engine to finish the user session. As an alternative, we could had created
+a Endpoint for the logout logic, but this would require a new route with you follow
+this path.
 
 *** Using the navigation base component
-The next step is to add the component on each page. Edit the Page.Login.fs and
-add the component to the resulting content in the Main function:
+The next step is to add the component on each page. Edit the */Page.Login.fs/* and
+add the component to the resulting content in the src_fsharp[:exports code]{Main} function:
 
 #+BEGIN_SRC fsharp
 ...
@@ -142,16 +147,18 @@ open WebSharperTutorial.FrontEnd.Components // <-- add this line
 
 #+END_SRC
 
-Note: as we want to prepend the navigation bar component to the content, we
-created a list and use the Doc.Concat to transform this list of Doc into a
-single Doc element¹.
+As we want to prepend the navigation bar component to the content, we
+created a list and use the src_fsharp[:exports code]{Doc.Concat} to transform
+this list of Doc into a single Doc element¹.
 
 Now, you can go ahead and remove the logout button from the login form, if you
 want.
 
+#+BEGIN_QUOTE
 Note¹: there is a drawback for this approach. The Doc type has a specialized
 type named Elt, which provide several functions and fields. By using Doc.Concat,
-we cannot downcast it to Elt type anymore.
+we cannot downcast the resulting aggregate to Elt type anymore.
+#+END_QUOTE
 
 ** Routing system revisited - client side routing
 In prior sections, we saw how to setup the routing system for the application.
@@ -163,29 +170,34 @@ moment.
 Let's fix it.
 
 *** Client side routing
-The WebSharper Router.InstallRouter creates a Reactive Variable, whose inner
-type is the EndPoint, a discriminated union defined in the Routes.fs file.
+The WebSharper's src_fsharp[:exports code]{Router.InstallRouter} function creates
+a /Reactive Variable/, whose inner type is the EndPoint, a discriminated union
+defined in the */Routes.fs/* file.
 
-This Reactive Variable is used to control the EndPoint navigation and can be
+This /Reactive Variable/ is used to control the EndPoint navigation and can be
 changed by just setting its value as follows:
 
+#+BEGIN_SRC fsharp
 router.Value <- EndPointOption
+#+END_SRC
 
 or 
 
+#+BEGIN_SRC fsharp
 Var.Set router <- EndPointOption
+#+END_SRC
 
-The router, as a Reactive Variable, provides a field to expose a View and the
+The router, as a /Reactive Variable/, provides a field to expose a View and the
 client side router relies on it to refresh the DOM content (look for the
-Doc.EmbedView line, in the Main.fs file).
+src_fsharp[:exports code]{Doc.EmbedView} line, in the */Main.fs/* file).
 
 But just changing its value won't work, unless we take care of all endpoints.
 
-We are going to refactor the Main.fs file and add two new functions to the
-Main.fs file and to help us handling the page's content update, whenever the
-router has its value changed.
+We are going to refactor the */Main.fs/* file and add two new functions in order
+to help us handling the page's content update, whenever the router has its value
+changed.
 
-But before that, let's create a new file named PageHome.fs to better organize
+But before that, let's create a new file named */PageHome.fs/* to better organize
 our code:
 
 #+BEGIN_SRC fsharp
@@ -222,7 +234,7 @@ module PageHome =
 
 #+END_SRC
 
-And now, edit the Main.fs file and add the following functions before the Main value:
+Edit the */Main.fs/* file and add the following functions *before* the Main value:
 
 #+BEGIN_SRC fsharp
     ...
@@ -257,7 +269,7 @@ And now, edit the Main.fs file and add the following functions before the Main v
     ...
 #+END_SRC
 
-And this is the new Main value content:
+And this is the new src_fsharp[:exports code]{Main}'s value content:
 
 #+BEGIN_SRC fsharp
     [<Website>]
@@ -309,6 +321,6 @@ And this is the new Main value content:
 
 We are done for now. Rebuild the project and test it again.
 
-|----------+----+------|
-| [[./cookbook-chapter-03.org][previous]] | [[../README.md][up]] | [[./cookbook-chapter-05.org][next]] |
-|----------+----+------|
+|----------+----+-------------------------------|
+| [[./cookbook-chapter-03.org][previous]] | [[../README.md][up]] | [[./cookbook-chapter-05.org][Chapter 05 - The listing page]] |
+|----------+----+-------------------------------|
