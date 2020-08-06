@@ -111,7 +111,7 @@ let InstallRouter () =
 
 ```
 
-This function returns a `Var<EndPoint>` value, which allows us to navigation among the EndPoints. The ` Router.Install ` function is responsible for building such object.
+This function returns a `Var<EndPoint>` value, which allows us to navigate among the EndPoints. The ` Router.Install ` function is responsible for building such object.
 
 Note: **Var** refers to the Reactive Variable type provided by WebSharper and will be introduced later in this tutorial.
 
