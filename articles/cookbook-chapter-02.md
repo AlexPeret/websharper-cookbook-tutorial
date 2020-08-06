@@ -151,7 +151,7 @@ The basic template references some external ***.css*** and ***.js*** files. In t
 
 Let's create a new file named ***Resources.fs*** and add to the ***.fsproj*** file, as usual.
 
-For now, we are going to embed only the Bootstrap files. Also, we are going to change the default path to JQuery library, each is used by WebSharper framework (pending: add app.config and change JQuery's path).
+For now, we are going to embed only the Bootstrap files. Also, we are going to change the default path to JQuery library, which is used by WebSharper framework (pending: add app.config and change JQuery's path).
 
 First, the Bootstrap files.
 
