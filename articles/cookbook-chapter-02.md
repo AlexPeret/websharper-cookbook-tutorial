@@ -56,7 +56,7 @@ The ` [<EndPoint>] ` attribute before each discriminated union option makes them
 
 This attribute provides a few options to setup the route for each endpoint, such as declaring the HTTP method (GET,POST) and the URL path, e.g. ` [<EndPoint "POST /private/form">] `
 
-But for this tutorial, we are going to use a more advantage configuration, by customizing the `Router<'T>` mapping.
+But for this tutorial, we are going to use a more advantageous configuration, by customizing the `Router<'T>` mapping.
 
 The next code lists this customized router. Add it to the end of the ***Routes.fs*** file:
 
