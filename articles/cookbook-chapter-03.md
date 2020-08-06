@@ -26,7 +26,7 @@ member this.ConfigureServices(services: IServiceCollection) =
 
 ```
 
-Add a new file to the project named ***Auth.js*** with the following content:
+Add a new file to the project named ***Auth.fs*** with the following content:
 
 ```fsharp
 namespace WebSharperTutorial.FrontEnd
