@@ -24,7 +24,7 @@ method:
 
 #+END_SRC
 
-Add a new file to the project named */Auth.js/* with the following content:
+Add a new file to the project named */Auth.fs/* with the following content:
 
 #+BEGIN_SRC fsharp
 namespace WebSharperTutorial.FrontEnd

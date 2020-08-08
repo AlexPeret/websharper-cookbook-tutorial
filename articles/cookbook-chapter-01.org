@@ -121,7 +121,7 @@ This is a good time to introduce the WebSharper's template engine.
 WebSharper allows us to create a template from a HTML file through the F# Type
 Provider.
 
-The template, once load in your code, allows composition with other elements and
+The template, once loaded in your code, allows composition with other elements and
 also to change its content through the */ws-holes/* and */ws-replace/* attributes. The
 difference between them, is the latter will replace its container element, while
 the former will insert the new content into the container element.
