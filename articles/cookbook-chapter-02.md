@@ -56,7 +56,7 @@ The ` [<EndPoint>] ` attribute before each discriminated union option makes them
 
 This attribute provides a few options to setup the route for each endpoint, such as declaring the HTTP method (GET,POST) and the URL path, e.g. ` [<EndPoint "POST /private/form">] `
 
-But for this tutorial, we are going to use a more advantage configuration, by customizing the `Router<'T>` mapping.
+But for this tutorial, we are going to use a more advantageous configuration, by customizing the `Router<'T>` mapping.
 
 The next code lists this customized router. Add it to the end of the ***Routes.fs*** file:
 
@@ -111,7 +111,7 @@ let InstallRouter () =
 
 ```
 
-This function returns a `Var<EndPoint>` value, which allows us to navigation among the EndPoints. The ` Router.Install ` function is responsible for building such object.
+This function returns a `Var<EndPoint>` value, which allows us to navigate among the EndPoints. The ` Router.Install ` function is responsible for building such object.
 
 Note: **Var** refers to the Reactive Variable type provided by WebSharper and will be introduced later in this tutorial.
 
@@ -151,7 +151,7 @@ The basic template references some external ***.css*** and ***.js*** files. In t
 
 Let's create a new file named ***Resources.fs*** and add to the ***.fsproj*** file, as usual.
 
-For now, we are going to embed only the Bootstrap files. Also, we are going to change the default path to JQuery library, each is used by WebSharper framework (pending: add app.config and change JQuery's path).
+For now, we are going to embed only the Bootstrap files. Also, we are going to change the default path to JQuery library, which is used by WebSharper framework (pending: add app.config and change JQuery's path).
 
 First, the Bootstrap files.
 

@@ -11,7 +11,7 @@
 
 By now, we have the routing schema for our application built, but we need to add some UI elements to allow the user to navigate between the pages.
 
-In this section we are going to add a navigation bar to the application. As we have public and private areas, it would be great to have separed navigation bars for when the user is authenticated and unauthenticated.
+In this section we are going to add a navigation bar to the application. As we have public and private areas, it would be great to have separate navigation bars for when the user is authenticated and unauthenticated.
 
 As the Home page can be accessed while authenticated and unauthenticated, it would be good to replace it accordingly.
 
